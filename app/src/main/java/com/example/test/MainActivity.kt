@@ -60,13 +60,16 @@ class MainActivity : AppCompatActivity() {
 
         fun postExecutorRunner(result: String) {
             val rootJSON = JSONObject(result)
-            val weatherJSON = rootJSON.getString("description")
-            val tempmax = rootJSON.getString("temp_max")
-            val tempmin = rootJSON.getString("temp_min")
+            val tempJSON = rootJSON.getJSONObject("main")
+            val tempmax = tempJSON.getString("temp_max")
+            val tempmin = tempJSON.getString("temp_min")
+            val weatherJSONArray = rootJSON.getJSONArray("weather")
+            val weatherJSON = weatherJSONArray.getJSONObject(0)
+            val weather =  weatherJSON.getString("description")
             var todayweather: TextView = findViewById(R.id.today_weather_text)
             var todaytempmax: TextView = findViewById(R.id.today_temp_max)
             var todaytempmin: TextView = findViewById(R.id.today_temp_min)
-            todayweather.text = weatherJSON
+            todayweather.text = weather
             todaytempmax.text = tempmax
             todaytempmin.text = tempmin
 
